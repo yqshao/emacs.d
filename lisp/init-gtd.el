@@ -1,6 +1,6 @@
 ;;; Copied from Purcell's init-org.el
 
-(define-key global-map (kbd "C-c a") 'org-agenda)
+(define-key global-map (kbd "C-c g") '(lambda (&optional arg) (interactive "P") (org-agenda arg "g")))
 
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
@@ -13,8 +13,9 @@
               ("PROJECT" :inherit font-lock-string-face))))
 
 ;;; Agenda views
-(setq-default org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
 
+(setq-default org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
+(add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
 (let ((active-project-match "-INBOX/PROJECT"))
 
@@ -27,7 +28,7 @@
         org-agenda-span 'day
         org-agenda-include-diary nil
         org-agenda-sorting-strategy
-        '((agenda habit-down time-up user-defined-up effort-up category-keep)
+        '((agenda priority-down habit-down time-up user-defined-up effort-up category-keep)
           (todo category-up effort-up)
           (tags category-up effort-up)
           (search category-up))
@@ -56,7 +57,7 @@
                                 (org-agenda-skip-entry-if 'nottodo '("NEXT")))))
                         (org-tags-match-list-sublevels t)
                         (org-agenda-sorting-strategy
-                         '(todo-state-down effort-up category-keep))))
+                         '(priority-down effort-up category-keep))))
             (tags-todo ,active-project-match
                        ((org-agenda-overriding-header "Projects")
                         (org-tags-match-list-sublevels t)
