@@ -1,6 +1,8 @@
 ;;; Copied from Purcell's init-org.el
 
-(define-key global-map (kbd "C-c g") '(lambda (&optional arg) (interactive "P") (org-agenda arg "g")))
+(defun org-gtd-agenda (&optional arg)
+  (interactive "P") (org-agenda arg "g"))
+(define-key global-map (kbd "C-c g") 'org-gtd-agenda)
 
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")

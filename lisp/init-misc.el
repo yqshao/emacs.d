@@ -1,8 +1,11 @@
+;; Simplify yes-or-no
 (fset 'yes-or-no-p 'y-or-n-p)
+
 ;; Fix tramp for customized prompt
 (setq tramp-shell-prompt-pattern
    "\\(?:^\\|\\)[^]#$%>
 ]*#?[]#$%>].* *\\(\\[[0-9;]*[a-zA-Z] *\\)*")
+
 ;; Quote for scratch
 (setq-default
  initial-scratch-message
@@ -16,4 +19,11 @@
 	 ";;\n"
 	 ";;                             - Carl Friedrich Gauss, Letter to Bolyai, 1808.\n\n"
 	 ))
+
+;; Guide-key, from purcell's config
+(require-package 'guide-key)
+(setq guide-key/guide-key-sequence t)
+(add-hook 'after-init-hook 'guide-key-mode)
+
+;
 (provide 'init-misc)
