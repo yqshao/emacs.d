@@ -22,5 +22,9 @@
 ;; windmove
 (unless (memq window-system '(nt w32))
   (windmove-default-keybindings 'control))
+(global-set-key (kbd "M-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "M-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-C-<down>") 'shrink-window)
+(global-set-key (kbd "M-C-<up>") 'enlarge-window)
 
 (provide 'init-gui)
