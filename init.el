@@ -15,7 +15,7 @@
 (require 'init-gtd)
 
 ;; Language specific
-;; (require 'init-latex)
+(require 'init-latex)
 (require 'init-python)
 ;; (require 'init-js)
 
