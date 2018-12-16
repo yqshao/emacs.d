@@ -26,5 +26,6 @@
 (global-set-key (kbd "M-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-C-<down>") 'shrink-window)
 (global-set-key (kbd "M-C-<up>") 'enlarge-window)
+(column-number-mode)
 
 (provide 'init-gui)
