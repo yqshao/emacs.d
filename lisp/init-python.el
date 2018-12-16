@@ -7,4 +7,8 @@
 (add-to-list 'python-shell-completion-native-disabled-interpreters
              "jupyter")
 
+(eval-after-load "elpy"
+  '(cl-dolist (key '("C-<up>" "C-<down>" "C-<left>" "C-<right>"))
+     (define-key elpy-mode-map (kbd key) nil)))
+
 (provide 'init-python)
