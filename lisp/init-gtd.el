@@ -113,6 +113,7 @@
 (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
 
 ;; Personal settings
-(add-to-list 'org-agenda-files "~/notes/gtd/")
+(eval-after-load "org-agenda"
+  '(add-to-list 'org-agenda-files "~/notes/gtd/"))
 
 (provide 'init-gtd)
