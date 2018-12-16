@@ -1,3 +1,7 @@
+;; Fix font size
+(add-to-list 'default-frame-alist
+             '(font . "DejaVu Sans Mono-10"))
+
 ;; Disable some elements
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
