@@ -12,6 +12,7 @@
 (require 'init-gui)
 (require 'init-helm)
 (require 'init-git)
+(require 'init-gtd)
 
 ;; Language specific
 ;; (require 'init-latex)
