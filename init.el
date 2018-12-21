@@ -7,9 +7,9 @@
 (require 'init-elpa)
 
 ;; Features
+(require 'init-gui)
 (require 'init-edit)
 (require 'init-theme)
-(require 'init-gui)
 (require 'init-helm)
 (require 'init-git)
 (require 'init-gtd)

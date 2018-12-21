@@ -43,4 +43,12 @@
 (global-set-key (kbd "M-C-<up>") 'enlarge-window)
 (column-number-mode)
 
+(require 'delight)
+(delight 'undo-tree-mode nil 'undo-tree)
+(delight 'guide-key-mode nil 'guide-key)
+(delight 'helm-mode nil)
+(delight 'elpy-mode nil 'elpy)
+(delight 'emacs-lisp-mode "Elisp" :major)
+(delight 'org-agenda-mode "Agenda" :major)
+
 (provide 'init-gui)
