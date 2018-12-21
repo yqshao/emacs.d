@@ -115,6 +115,12 @@
 
 (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
 
+;; Pomodoro
+(require-package 'org-pomodoro)
+(setq org-pomodoro-keep-killed-pomodoro-time t)
+(after-load 'org-agenda
+  (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
+
 ;; Personal settings
 (eval-after-load "org-agenda"
   '(add-to-list 'org-agenda-files "~/notes/gtd/"))
