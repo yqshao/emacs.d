@@ -4,3 +4,5 @@ elpa*/
 /custom.el
 /tramp
 /locate.db
+/ac-comphist.dat
+/request/

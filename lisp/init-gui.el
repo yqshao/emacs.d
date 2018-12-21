@@ -43,12 +43,23 @@
 (global-set-key (kbd "M-C-<up>") 'enlarge-window)
 (column-number-mode)
 
-(require 'delight)
-(delight 'undo-tree-mode nil 'undo-tree)
-(delight 'guide-key-mode nil 'guide-key)
-(delight 'helm-mode nil)
-(delight 'elpy-mode nil 'elpy)
+(require-package 'delight)
+;; (delight 'undo-tree-mode nil 'undo-tree)
+;; (delight 'guide-key-mode nil 'guide-key)
+;; (delight 'helm-mode nil)
+;; (delight 'elpy-mode nil 'elpy)
 (delight 'emacs-lisp-mode "Elisp" :major)
 (delight 'org-agenda-mode "Agenda" :major)
+
+;; Spaceline
+(require-package 'spaceline)
+(require 'spaceline-config)
+(require 'delight-powerline)
+(spaceline-toggle-minor-modes-off)
+(custom-set-faces
+ '(powerline-inactive1 ((t (:inherit mode-line-inactive))))
+ '(powerline-inactive2 ((t (:inherit mode-line-inactive)))))
+(spaceline-helm-mode)
+(add-hook 'after-init-hook 'spaceline-emacs-theme)
 
 (provide 'init-gui)
