@@ -13,6 +13,7 @@
 (require 'init-helm)
 (require 'init-git)
 (require 'init-gtd)
+(require 'init-shell)
 
 ;; Language specific
 (require 'init-latex)
