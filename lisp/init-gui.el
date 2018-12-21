@@ -56,6 +56,9 @@
 (require 'spaceline-config)
 (require 'delight-powerline)
 (spaceline-toggle-minor-modes-off)
+(spaceline-toggle-hud-off)
+(spaceline-toggle-buffer-position-off)
+
 (custom-set-faces
  '(powerline-inactive1 ((t (:inherit mode-line-inactive))))
  '(powerline-inactive2 ((t (:inherit mode-line-inactive)))))
