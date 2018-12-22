@@ -63,6 +63,35 @@
  '(powerline-inactive1 ((t (:inherit mode-line-inactive))))
  '(powerline-inactive2 ((t (:inherit mode-line-inactive)))))
 (spaceline-helm-mode)
-(add-hook 'after-init-hook 'spaceline-emacs-theme)
+
+(defun spaceline--get-face (face active)
+  "Universal function to get the right face.
+FACE and ACTIVE have the same meanings as in
+`spaceline-face-func'.  It delegates the work to
+`spaceline-face-func' if it is given, otherwise falls back to
+default configuration."
+  (if spaceline-face-func
+      (funcall spaceline-face-func face active)
+    (cond
+     ((eq 'face1 face) (if active 'powerline-active1 'powerline-inactive1))
+     ((eq 'face2 face) (if active 'mode-line 'mode-line-inactive))
+     ((eq 'line face) (if active 'powerline-active1 'powerline-inactive2))
+     ((eq 'highlight face) (if active
+                               (funcall spaceline-highlight-face-func)
+                             'powerline-inactive1)))))
+
+(defun myspaceline ()
+  (spaceline-install
+    'main
+    '(((buffer-modified buffer-size) :face highlight-face)
+      (buffer-id remote-host)
+      (org-pomodoro :when active)
+      )
+    '((version-control)
+      (process)
+      (major-mode)
+      (line-column)))
+  (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
+(add-hook 'after-init-hook 'myspaceline)
 
 (provide 'init-gui)
