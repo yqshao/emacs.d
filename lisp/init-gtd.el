@@ -6,20 +6,20 @@
 
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
-              (sequence "PROJECT(p)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
-              (sequence "WAITING(w@/!)" "DELEGATED(e!)" "HOLD(h)" "|" "CANCELLED(c@/!)")))
+              (sequence "PROJ(p)" "|" "DONE(d!/!)" "CANC(c@/!)")
+              (sequence "WAIT(w@/!)" "DELE(e!)" "HOLD(h)" "|")))
       org-todo-repeat-to-state "NEXT")
 
 (setq org-todo-keyword-faces
       (quote (("NEXT" :inherit warning)
-              ("PROJECT" :inherit font-lock-string-face))))
+              ("PROJ" :inherit font-lock-string-face))))
 
 ;;; Agenda views
 
 (setq-default org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
-(let ((active-project-match "-INBOX/PROJECT"))
+(let ((active-project-match "-INBOX/PROJ"))
 
   (setq org-stuck-projects
         `(,active-project-match ("NEXT")))
@@ -55,7 +55,7 @@
                         (org-agenda-todo-ignore-scheduled 'future)
                         (org-agenda-skip-function
                          '(lambda ()
-                            (or (org-agenda-skip-subtree-if 'todo '("HOLD" "WAITING"))
+                            (or (org-agenda-skip-subtree-if 'todo '("HOLD" "WAIT"))
                                 (org-agenda-skip-entry-if 'nottodo '("NEXT")))))
                         (org-tags-match-list-sublevels t)
                         (org-agenda-sorting-strategy
@@ -71,18 +71,18 @@
                         (org-agenda-todo-ignore-scheduled 'future)
                         (org-agenda-skip-function
                          '(lambda ()
-                            (or (org-agenda-skip-subtree-if 'todo '("PROJECT" "HOLD" "WAITING" "DELEGATED"))
+                            (or (org-agenda-skip-subtree-if 'todo '("PROJ" "HOLD" "WAIT" "DELE"))
                                 (org-agenda-skip-subtree-if 'nottododo '("TODO")))))
                         (org-tags-match-list-sublevels t)
                         (org-agenda-sorting-strategy
                          '(category-keep))))
-            (tags-todo "/WAITING"
+            (tags-todo "/WAITG"
                        ((org-agenda-overriding-header "Waiting")
                         (org-agenda-tags-todo-honor-ignore-options t)
                         (org-agenda-todo-ignore-scheduled 'future)
                         (org-agenda-sorting-strategy
                          '(category-keep))))
-            (tags-todo "/DELEGATED"
+            (tags-todo "/DELE"
                        ((org-agenda-overriding-header "Delegated")
                         (org-agenda-tags-todo-honor-ignore-options t)
                         (org-agenda-todo-ignore-scheduled 'future)
