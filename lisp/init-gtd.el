@@ -15,7 +15,13 @@
               ("PROJ" :inherit font-lock-string-face))))
 
 ;;; Agenda views
-
+;; Align tag position
+(add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
+(defun place-agenda-tags ()
+  "Put the agenda tags by the right border of the agenda window."
+  (setq org-agenda-tags-column (- 0 (window-width)))
+  (org-agenda-align-tags))
+;;
 (setq-default org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
