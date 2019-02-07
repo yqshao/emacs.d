@@ -1,6 +1,10 @@
-(require-package 'color-theme-sanityinc-tomorrow)
+(use-package color-theme-sanityinc-tomorrow
+  :ensure
+  :init
+  (setq-default custom-enabled-themes '(sanityinc-tomorrow-day))
+)
 
-(setq-default custom-enabled-themes '(sanityinc-tomorrow-day))
+
 
 (defun reapply-themes ()
   "Forcibly load the themes listed in `custom-enabled-themes'."
@@ -23,8 +27,8 @@
   (setq custom-enabled-themes '(sanityinc-tomorrow-eighties))
   (reapply-themes))
 
-(when (maybe-require-package 'dimmer)
-  (setq-default dimmer-fraction 0.15)
-  (add-hook 'after-init-hook 'dimmer-mode))
+;; (when (maybe-require-package 'dimmer)
+;;   (setq-default dimmer-fraction 0.15)
+;;   (add-hook 'after-init-hook 'dimmer-mode))
 
 (provide 'init-theme)

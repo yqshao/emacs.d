@@ -1,4 +1,4 @@
-(require-package 'shell-pop)
+(use-package shell-pop :ensure)
 (custom-set-variables
  '(shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
  '(shell-pop-term-shell "/bin/bash")

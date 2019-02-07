@@ -1,12 +1,17 @@
 ;; Git
-(require-package 'magit)
-(setq-default magit-diff-refine-hunk t)
-;; Hint: customize `magit-repository-directories'
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+(use-package magit
+  :ensure
+  :bind
+  (("C-x g" . magit-status)
+   ("C-x M-g" . magit-dispatch-popup))
+  :init
+  (setq-default magit-diff-refine-hunk t))
 
-(require-package 'diff-hl)
-(add-hook 'after-init-hook 'global-diff-hl-mode)
-(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+
+(use-package diff-hl
+  :ensure
+  :init
+  (add-hook 'after-init-hook 'global-diff-hl-mode)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
 (provide 'init-git)

@@ -5,7 +5,9 @@
   (add-hook 'after-init-hook 'electric-indent-mode))
 
 ;; Undo tree
-(require-package 'undo-tree)
-(add-hook 'after-init-hook 'global-undo-tree-mode)
+(use-package undo-tree
+  :ensure
+  :init
+  (add-hook 'after-init-hook 'global-undo-tree-mode))
 
 (provide 'init-edit)

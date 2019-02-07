@@ -1,9 +1,40 @@
 ;;; Copied from Purcell's init-org.el
+(use-package org-pomodoro
+  :ensure
+  :init
+  (setq org-pomodoro-keep-killed-pomodoro-time t)
+  (after-load 'org-agenda
+    (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro)))
+
+;; Personal settings
+(eval-after-load "org-agenda"
+  '(add-to-list 'org-agenda-files "~/notes/gtd/"))
 
 (defun org-gtd-agenda (&optional arg)
   (interactive "P") (org-agenda arg "g"))
 (define-key global-map (kbd "C-c g") 'org-gtd-agenda)
 
+
+;; Style
+(add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
+(defun place-agenda-tags ()
+  "Put the agenda tags by the right border of the agenda window."
+  (setq org-agenda-tags-column (- 0 (window-width)))
+  (org-agenda-align-tags))
+(setq-default org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
+(add-hook 'org-agenda-mode-hook 'hl-line-mode)
+(defun my-org-clocktable-indent-string (level)
+  (if (= level 1)
+      ""
+    (let ((str "^"))
+      (while (> level 2)
+        (setq level (1- level)
+              str (concat str "--")))
+      (concat str "-> "))))
+(advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
+
+;; Custom view
+;; https://hamberg.no/gtd/
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
               (sequence "PROJ(p)" "|" "DONE(d!/!)" "CANC(c@/!)")
@@ -13,17 +44,6 @@
 (setq org-todo-keyword-faces
       (quote (("NEXT" :inherit warning)
               ("PROJ" :inherit font-lock-string-face))))
-
-;;; Agenda views
-;; Align tag position
-(add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
-(defun place-agenda-tags ()
-  "Put the agenda tags by the right border of the agenda window."
-  (setq org-agenda-tags-column (- 0 (window-width)))
-  (org-agenda-align-tags))
-;;
-(setq-default org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
-(add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
 (let ((active-project-match "-INBOX/PROJ"))
 
@@ -61,7 +81,7 @@
                         (org-agenda-todo-ignore-scheduled 'future)
                         (org-agenda-skip-function
                          '(lambda ()
-                            (or (org-agenda-skip-subtree-if 'todo '("HOLD" "WAIT"))
+                            (or (org-agenda-skip-subtree-if 'todo '("HOLD"))
                                 (org-agenda-skip-entry-if 'nottodo '("NEXT")))))
                         (org-tags-match-list-sublevels t)
                         (org-agenda-sorting-strategy
@@ -82,7 +102,7 @@
                         (org-tags-match-list-sublevels t)
                         (org-agenda-sorting-strategy
                          '(category-keep))))
-            (tags-todo "/WAITG"
+            (tags-todo "/WAIT"
                        ((org-agenda-overriding-header "Waiting")
                         (org-agenda-tags-todo-honor-ignore-options t)
                         (org-agenda-todo-ignore-scheduled 'future)
@@ -108,27 +128,5 @@
             ;;             (org-match-list-sublevels t)))
             )))))
 
-
-;; Overide default clocktable format (from stackoverflow)
-(defun my-org-clocktable-indent-string (level)
-  (if (= level 1)
-      ""
-    (let ((str "^"))
-      (while (> level 2)
-        (setq level (1- level)
-              str (concat str "--")))
-      (concat str "-> "))))
-
-(advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
-
-;; Pomodoro
-(require-package 'org-pomodoro)
-(setq org-pomodoro-keep-killed-pomodoro-time t)
-(after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
-
-;; Personal settings
-(eval-after-load "org-agenda"
-  '(add-to-list 'org-agenda-files "~/notes/gtd/"))
 
 (provide 'init-gtd)

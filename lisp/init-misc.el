@@ -21,9 +21,10 @@
 	 ))
 
 ;; Guide-key, from purcell's config
-(require-package 'guide-key)
-(setq guide-key/guide-key-sequence t)
-(add-hook 'after-init-hook 'guide-key-mode)
+(use-package guide-key
+  :ensure
+  :init
+  (setq guide-key/guide-key-sequence t)
+  (add-hook 'after-init-hook 'guide-key-mode))
 
-;
 (provide 'init-misc)
