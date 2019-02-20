@@ -1,6 +1,8 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
@@ -25,8 +27,8 @@
 (require 'init-shell)
 
 ;; Language specific
-;; (require 'init-latex)
-;; (require 'init-python)
+(require 'init-latex)
+(require 'init-python)
 ;; ;; (require 'init-js)
 
 ;; Finishing

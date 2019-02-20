@@ -1,5 +1,5 @@
-(require-package 'elpy)
-(require-package 'snakemake-mode)
+(use-package elpy  :ensure)
+(use-package snakemake-mode :ensure)
 (elpy-enable)
 
 (setq python-shell-interpreter "jupyter"

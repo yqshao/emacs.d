@@ -6,6 +6,8 @@
   (after-load 'org-agenda
     (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro)))
 
+(require 'org-habit)
+
 ;; Personal settings
 (eval-after-load "org-agenda"
   '(add-to-list 'org-agenda-files "~/notes/gtd/"))
@@ -14,6 +16,13 @@
   (interactive "P") (org-agenda arg "g"))
 (define-key global-map (kbd "C-c g") 'org-gtd-agenda)
 
+
+;; Capture, inbox and refile
+(define-key global-map (kbd "C-c c") (lambda () (interactive) (org-capture nil "t")))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 5)))
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/notes/gtd/inbox.org" "Tasks")
+         "* NEXT %?\n  %i\n  %a")))
 
 ;; Style
 (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
@@ -52,11 +61,11 @@
 
   (setq org-agenda-compact-blocks t
         org-agenda-sticky t
-        org-agenda-start-on-weekday nil
+        org-agenda-start-on-weekday 1
         org-agenda-span 'day
         org-agenda-include-diary nil
         org-agenda-sorting-strategy
-        '((agenda habit-down time-up priority-down user-defined-up effort-up category-keep)
+        '((agenda habit-down time-up deadline-up priority-down user-defined-up effort-up category-keep)
           (todo category-up effort-up)
           (tags category-up effort-up)
           (search category-up))
@@ -67,9 +76,9 @@
             (org-tags-match-list-sublevels t)))
           ("g" "GTD"
            ((agenda "" nil)
-            (tags "INBOX"
+            (tags-todo "INBOX"
                   ((org-agenda-overriding-header "Inbox")
-                   (org-tags-match-list-sublevels nil)))
+		   (org-agenda-tags-todo-honor-ignore-options t)))
             (stuck ""
                    ((org-agenda-overriding-header "Stuck Projects")
                     (org-agenda-tags-todo-honor-ignore-options t)
@@ -78,11 +87,13 @@
             (tags-todo "-INBOX"
                        ((org-agenda-overriding-header "Next Actions")
                         (org-agenda-tags-todo-honor-ignore-options t)
-                        (org-agenda-todo-ignore-scheduled 'future)
+                        (org-agenda-todo-ignore-scheduled 'all)
                         (org-agenda-skip-function
                          '(lambda ()
                             (or (org-agenda-skip-subtree-if 'todo '("HOLD"))
-                                (org-agenda-skip-entry-if 'nottodo '("NEXT")))))
+                                (org-agenda-skip-entry-if 'nottodo '("NEXT"))
+				(org-agenda-skip-entry-if 'regexp "habit")
+				)))
                         (org-tags-match-list-sublevels t)
                         (org-agenda-sorting-strategy
                          '(priority-down effort-up category-keep))))
@@ -123,7 +134,7 @@
                         (org-tags-match-list-sublevels nil)
                         (org-agenda-sorting-strategy
                          '(category-keep))))
-            ;; (tags-todo "-NEXT"
+            ;; (tags-todo "TODO"
             ;;            ((org-agenda-overriding-header "All other TODOs")
             ;;             (org-match-list-sublevels t)))
             )))))

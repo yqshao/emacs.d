@@ -3,7 +3,7 @@
 (use-package pdf-tools :ensure
   :init
   (pdf-tools-install))
-(use-package 'helm-bibtex :ensure
+(use-package helm-bibtex :ensure
   :init
   (setq helm-bibtex-full-frame nil)
   (define-key global-map (kbd "C-c b") 'helm-bibtex)
