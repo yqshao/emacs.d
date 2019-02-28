@@ -79,12 +79,7 @@
             (tags-todo "INBOX"
                   ((org-agenda-overriding-header "Inbox")
 		   (org-agenda-tags-todo-honor-ignore-options t)))
-            (stuck ""
-                   ((org-agenda-overriding-header "Stuck Projects")
-                    (org-agenda-tags-todo-honor-ignore-options t)
-                    (org-tags-match-list-sublevels t)
-                    (org-agenda-todo-ignore-scheduled 'future)))
-            (tags-todo "-INBOX"
+             (tags-todo "-INBOX-BOOK"
                        ((org-agenda-overriding-header "Next Actions")
                         (org-agenda-tags-todo-honor-ignore-options t)
                         (org-agenda-todo-ignore-scheduled 'all)
@@ -97,34 +92,52 @@
                         (org-tags-match-list-sublevels t)
                         (org-agenda-sorting-strategy
                          '(priority-down effort-up category-keep))))
-            (tags-todo ,active-project-match
-                       ((org-agenda-overriding-header "Projects")
-                        (org-tags-match-list-sublevels t)
-                        (org-agenda-sorting-strategy
-                         '(category-keep))))
-            (tags-todo "-INBOX/-NEXT"
-                       ((org-agenda-overriding-header "Orphaned Tasks")
+	    (tags-todo "-INBOX+BOOK"
+                       ((org-agenda-overriding-header "Books to read")
                         (org-agenda-tags-todo-honor-ignore-options t)
-                        (org-agenda-todo-ignore-scheduled 'future)
+                        (org-agenda-todo-ignore-scheduled 'all)
                         (org-agenda-skip-function
                          '(lambda ()
-                            (or (org-agenda-skip-subtree-if 'todo '("PROJ" "HOLD" "WAIT" "DELE"))
-                                (org-agenda-skip-subtree-if 'nottododo '("TODO")))))
+                            (or (org-agenda-skip-subtree-if 'todo '("HOLD"))
+                                (org-agenda-skip-entry-if 'nottodo '("NEXT"))
+				(org-agenda-skip-entry-if 'regexp "habit")
+				)))
                         (org-tags-match-list-sublevels t)
                         (org-agenda-sorting-strategy
-                         '(category-keep))))
+                         '(priority-down effort-up category-keep))))
+            ;; (tags-todo ,active-project-match
+            ;;            ((org-agenda-overriding-header "Projects")
+            ;;             (org-tags-match-list-sublevels t)
+            ;;             (org-agenda-sorting-strategy
+            ;;              '(category-keep))))
+            ;; (tags-todo "-INBOX/-NEXT"
+            ;;            ((org-agenda-overriding-header "Orphaned Tasks")
+            ;;             (org-agenda-tags-todo-honor-ignore-options t)
+            ;;             (org-agenda-todo-ignore-scheduled 'future)
+            ;;             (org-agenda-skip-function
+            ;;              '(lambda ()
+            ;;                 (or (org-agenda-skip-subtree-if 'todo '("PROJ" "HOLD" "WAIT" "DELE"))
+            ;;                     (org-agenda-skip-subtree-if 'nottododo '("TODO")))))
+            ;;             (org-tags-match-list-sublevels t)
+            ;;             (org-agenda-sorting-strategy
+            ;;              '(category-keep))))
+	    (stuck ""
+                   ((org-agenda-overriding-header "Stuck Projects")
+                    (org-agenda-tags-todo-honor-ignore-options t)
+                    (org-tags-match-list-sublevels t)
+                    (org-agenda-todo-ignore-scheduled 'future)))
             (tags-todo "/WAIT"
                        ((org-agenda-overriding-header "Waiting")
                         (org-agenda-tags-todo-honor-ignore-options t)
                         (org-agenda-todo-ignore-scheduled 'future)
                         (org-agenda-sorting-strategy
                          '(category-keep))))
-            (tags-todo "/DELE"
-                       ((org-agenda-overriding-header "Delegated")
-                        (org-agenda-tags-todo-honor-ignore-options t)
-                        (org-agenda-todo-ignore-scheduled 'future)
-                        (org-agenda-sorting-strategy
-                         '(category-keep))))
+            ;; (tags-todo "/DELE"
+            ;;            ((org-agenda-overriding-header "Delegated")
+            ;;             (org-agenda-tags-todo-honor-ignore-options t)
+            ;;             (org-agenda-todo-ignore-scheduled 'future)
+            ;;             (org-agenda-sorting-strategy
+            ;;              '(category-keep))))
             (tags-todo "-INBOX"
                        ((org-agenda-overriding-header "On Hold")
                         (org-agenda-skip-function
