@@ -66,8 +66,12 @@
   (custom-set-faces
    '(powerline-inactive1 ((t (:inherit mode-line-inactive))))
    '(powerline-inactive2 ((t (:inherit mode-line-inactive)))))
-  (spaceline-helm-mode)
-  )
+  (spaceline-helm-mode))
+
+(defadvice vc-mode-line (after strip-backend () activate)
+  (when (stringp vc-mode)
+    (let ((gitlogo (replace-regexp-in-string "^ Git-" "  " vc-mode)))
+      (setq vc-mode gitlogo))))
 
 (defun spaceline--get-face (face active)
   "Universal function to get the right face.
