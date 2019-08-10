@@ -1,5 +1,5 @@
 ;; latex and pdf tools
-(use-package auctex :ensure)
+(use-package auctex :ensure :defer)
 (use-package pdf-tools :ensure
   :init
   (pdf-tools-install))
