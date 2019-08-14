@@ -8,3 +8,6 @@ elpa*/
 /request/
 /transient/
 /bookmarks
+/.org-id-locations
+/oauth2.plstore
+/org-caldav-*.el

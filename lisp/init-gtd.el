@@ -1,3 +1,32 @@
+;;; org-caldav
+(use-package oauth2 :ensure)
+
+(use-package org-caldav
+  :ensure
+  :init
+  (setq
+   gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
+   org-icalendar-include-todo t
+   org-caldav-show-sync-results nil
+   org-icalendar-use-scheduled '(event-if-todo todo-start)
+   org-icalendar-with-timestamps nil
+   org-caldav-url 'google
+   org-caldav-calendar-id "vf1djf1c314sk6c12bpe97g19c@group.calendar.google.com"
+   org-caldav-files '("~/notes/gtd/uppsala.org"
+		      "~/notes/gtd/inbox.org")
+   org-caldav-inbox "~/notes/gtd/gcal.org"
+   org-icalendar-timezone "Europe/Stockholm"
+   org-caldav-oauth2-client-id
+   "946592304530-coplp636hn85dre2d900bv62fum02463.apps.googleusercontent.com"
+   org-caldav-oauth2-client-secret "m5GDMJZFII1nASLx0e8gRIqK"))
+
+(setq org-agenda-time-grid
+      (quote
+       ((daily today require-timed remove-match)
+	(900 1800)
+	"......" "----------------"))
+      org-habit-show-habits nil)
+
 ;;; Copied from Purcell's init-org.el
 (use-package org-pomodoro
   :ensure
@@ -105,22 +134,6 @@
                         (org-tags-match-list-sublevels t)
                         (org-agenda-sorting-strategy
                          '(priority-down effort-up category-keep))))
-            ;; (tags-todo ,active-project-match
-            ;;            ((org-agenda-overriding-header "Projects")
-            ;;             (org-tags-match-list-sublevels t)
-            ;;             (org-agenda-sorting-strategy
-            ;;              '(category-keep))))
-            ;; (tags-todo "-INBOX/-NEXT"
-            ;;            ((org-agenda-overriding-header "Orphaned Tasks")
-            ;;             (org-agenda-tags-todo-honor-ignore-options t)
-            ;;             (org-agenda-todo-ignore-scheduled 'future)
-            ;;             (org-agenda-skip-function
-            ;;              '(lambda ()
-            ;;                 (or (org-agenda-skip-subtree-if 'todo '("PROJ" "HOLD" "WAIT" "DELE"))
-            ;;                     (org-agenda-skip-subtree-if 'nottododo '("TODO")))))
-            ;;             (org-tags-match-list-sublevels t)
-            ;;             (org-agenda-sorting-strategy
-            ;;              '(category-keep))))
 	    (stuck ""
                    ((org-agenda-overriding-header "Stuck Projects")
                     (org-agenda-tags-todo-honor-ignore-options t)
@@ -132,12 +145,6 @@
                         (org-agenda-todo-ignore-scheduled 'future)
                         (org-agenda-sorting-strategy
                          '(category-keep))))
-            ;; (tags-todo "/DELE"
-            ;;            ((org-agenda-overriding-header "Delegated")
-            ;;             (org-agenda-tags-todo-honor-ignore-options t)
-            ;;             (org-agenda-todo-ignore-scheduled 'future)
-            ;;             (org-agenda-sorting-strategy
-            ;;              '(category-keep))))
             (tags-todo "-INBOX"
                        ((org-agenda-overriding-header "On Hold")
                         (org-agenda-skip-function
@@ -147,9 +154,6 @@
                         (org-tags-match-list-sublevels nil)
                         (org-agenda-sorting-strategy
                          '(category-keep))))
-            ;; (tags-todo "TODO"
-            ;;            ((org-agenda-overriding-header "All other TODOs")
-            ;;             (org-match-list-sublevels t)))
             )))))
 
 
