@@ -5,15 +5,18 @@
   :ensure
   :init
   (setq
-   gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
+   ;; gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
+   plstore-cache-passphrase-for-symmetric-encryption t
    org-icalendar-include-todo t
    org-caldav-show-sync-results nil
    org-icalendar-use-scheduled '(event-if-todo todo-start)
+   org-icalendar-use-deadline '(event-if-todo event-if-not-todo)   
    org-icalendar-with-timestamps nil
    org-caldav-url 'google
    org-caldav-calendar-id "vf1djf1c314sk6c12bpe97g19c@group.calendar.google.com"
    org-caldav-files '("~/notes/gtd/uppsala.org"
 		      "~/notes/gtd/inbox.org")
+   org-caldav-save-directory "~/notes/gtd"
    org-caldav-inbox "~/notes/gtd/gcal.org"
    org-icalendar-timezone "Europe/Stockholm"
    org-caldav-oauth2-client-id
@@ -38,6 +41,7 @@
 (require 'org-habit)
 
 ;; Personal settings
+(setq org-directory "~/notes/gtd/")
 (eval-after-load "org-agenda"
   '(add-to-list 'org-agenda-files "~/notes/gtd/"))
 
@@ -54,11 +58,7 @@
          "* NEXT %?\n  %i\n  %a")))
 
 ;; Style
-(add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
-(defun place-agenda-tags ()
-  "Put the agenda tags by the right border of the agenda window."
-  (setq org-agenda-tags-column (- 0 (window-width)))
-  (org-agenda-align-tags))
+
 (setq-default org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 (defun my-org-clocktable-indent-string (level)
