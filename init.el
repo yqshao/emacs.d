@@ -28,6 +28,7 @@
 (require 'init-shell)
 
 ;; Language specific
+(require 'init-c)
 (require 'init-latex)
 (require 'init-python)
 ;; ;; (require 'init-js)
